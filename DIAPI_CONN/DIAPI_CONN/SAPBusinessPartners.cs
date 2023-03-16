@@ -1,16 +1,11 @@
 ﻿using SAPbobsCOM;
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Runtime.InteropServices;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace DIAPI_CONN
 {
     public class SAPBusinessPartners
     {
-        public Company MyCompany{ get; set; }
+        public Company MyCompany { get; set; }
         public BusinessPartners MyBP { get; set; }
 
         public SAPBusinessPartners(Company company)
@@ -29,16 +24,16 @@ namespace DIAPI_CONN
 
                 //CAMPO NATIVO EN ESPECÍFICO
                 Console.WriteLine($"Nombre: {MyBP.CardName}");
-                
+
                 //OBJETO DEPENDIENTE (COLECCIÓN)
-                
+
                 Console.WriteLine("DIRECCIONES: ");
 
                 for (int i = 0; i < MyBP.Addresses.Count; i++)
                 {
                     MyBP.Addresses.SetCurrentLine(i);
                     string tipoDireccion = MyBP.Addresses.AddressType == BoAddressType.bo_BillTo ? "FACTURACION" : "ALMACEN";
-                    
+
                     Console.WriteLine($"ID Dirección: {MyBP.Addresses.AddressName}");
                     Console.WriteLine($"Tipo Dirección: { tipoDireccion}");
                     Console.WriteLine($"Calle: {MyBP.Addresses.Street}");
@@ -80,14 +75,13 @@ namespace DIAPI_CONN
             }
             catch (Exception)
             {
-
                 throw;
             }
 
             return true;
         }
 
-        public bool ActualizarDireccion(string codigoSocio,string idDireccion, string calle, string distrito)
+        public bool ActualizarDireccion(string codigoSocio, string idDireccion, string calle, string distrito)
         {
             try
             {
@@ -104,7 +98,7 @@ namespace DIAPI_CONN
                 {
                     MyBP.Addresses.SetCurrentLine(i);
 
-                    if(MyBP.Addresses.AddressName == idDireccion)
+                    if (MyBP.Addresses.AddressName == idDireccion)
                     {
                         MyBP.Addresses.Street = calle;
                         MyBP.Addresses.County = distrito;
@@ -117,7 +111,89 @@ namespace DIAPI_CONN
             }
             catch (Exception)
             {
+                throw;
+            }
 
+            return true;
+        }
+
+        public bool ActualizarCampoUsuario(string codigoSocio, string ID_campo, dynamic valor)
+        {
+            try
+            {
+                MyBP = MyCompany.GetBusinessObject(BoObjectTypes.oBusinessPartners);
+
+                if (!MyBP.GetByKey(codigoSocio))
+                    throw new Exception($"El socio {codigoSocio} no está registrado en la BD");
+
+                MyBP.UserFields.Fields.Item(ID_campo).Value = valor;
+
+                if (MyBP.Update() != 0)
+                    throw new Exception(MyCompany.GetLastErrorDescription());
+            }
+            catch (Exception)
+            {
+                throw;
+            }
+
+            return true;
+        }
+
+        public bool CrearNuevoSocio()
+        {
+            try
+            {
+                MyBP = MyCompany.GetBusinessObject(BoObjectTypes.oBusinessPartners);
+
+                //ASIGNACIÓN DE VALORES
+                MyBP.CardCode = "C55687416";
+                MyBP.CardName = "KENNEDY VERGARAY";
+                MyBP.CardType = BoCardTypes.cCustomer;
+                MyBP.FederalTaxID = "55687416";
+
+                MyBP.Addresses.AddressName = "FISCAL";
+                MyBP.Addresses.AddressType = BoAddressType.bo_BillTo;
+                MyBP.Addresses.Street = "JR. FISCAL 4570 - URB SAN LUIS";
+                MyBP.Addresses.County = "SAN BORJA";
+
+                MyBP.Addresses.Add();
+
+                MyBP.Addresses.AddressName = "ALMACEN";
+                MyBP.Addresses.AddressType = BoAddressType.bo_ShipTo;
+                MyBP.Addresses.Street = "JR. FISCAL 4570 - URB SAN LUIS";
+                MyBP.Addresses.County = "LOS OLIVOS";
+
+                MyBP.Addresses.Add();
+
+                MyBP.UserFields.Fields.Item("U_VS_AVALNOM").Value = "NOMBRE AVAL CREACIÓN";
+                MyBP.UserFields.Fields.Item("U_VS_AVALDIR").Value = "DIRECCIÓN AVAL CREACIÓN";
+
+                if (MyBP.Add() != 0)
+                    throw new Exception(MyCompany.GetLastErrorDescription());
+            }
+            catch (Exception)
+            {
+                throw;
+            }
+
+            return true;
+        }
+
+        //ELIMINACIÓN DE REGISTRO (OBTENCIÓN DE REGISTRO + DELETE)
+        public bool Eliminar(string codigoSocio)
+        {
+            try
+            {
+                MyBP = MyCompany.GetBusinessObject(BoObjectTypes.oBusinessPartners);
+
+                if (!MyBP.GetByKey(codigoSocio))
+                    throw new Exception($"El socio {codigoSocio} no está registrado en la BD");
+
+                if (MyBP.Remove() != 0)
+                    throw new Exception(MyCompany.GetLastErrorDescription());
+            }
+            catch (Exception)
+            {
                 throw;
             }
 

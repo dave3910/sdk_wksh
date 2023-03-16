@@ -23,13 +23,26 @@ namespace DIAPI_CONN
 
                 //LECTURA (OBTENCIÓN DE DATOS)
                 SAPBusinessPartners bp = new SAPBusinessPartners(cnxMngr.MyCompany);
-                bp.GetBPInfo("PL45800996");
+                //bp.GetBPInfo("PL45800996");
 
                 //if (bp.ActualizarNombre("PL45800996", "LOPEZ RODRIGUEZ JORGE ARMANDO"))
                 //    Console.WriteLine("SOCIO ACTUALIZADO CORRECTAMENTE");
 
-                if(bp.ActualizarDireccion("PL45800996", "DIR2", "CALLE ACTUALIZADA", "SAN LUIS"))
-                    Console.WriteLine("DIRECCIÓN ACTUALIZADA CORRECTAMENTE");
+                //if(bp.ActualizarDireccion("PL45800996", "DIR2", "CALLE ACTUALIZADA", "SAN LUIS"))
+                //    Console.WriteLine("DIRECCIÓN ACTUALIZADA CORRECTAMENTE");
+
+                //if(bp.ActualizarCampoUsuario("PL45800996", "U_VS_AVALNOM", "NOMBRE AVAL ACTUALIZADO"))
+                //    Console.WriteLine("CAMPO DE USUARIO ACTUALIZADO CORRECTAMENTE");
+
+                //if (bp.ActualizarCampoUsuario("PL45800996", "U_VS_AVALDIR", "DIRECCION AVAL ACTUALIZADO"))
+                //    Console.WriteLine("CAMPO DE USUARIO ACTUALIZADO CORRECTAMENTE");
+
+                //if(bp.CrearNuevoSocio())
+                //    Console.WriteLine("SOCIO DE NEGOCIO CREADO CORRECTAMENTE");
+
+                if(bp.Eliminar("C55687416"))
+                    Console.WriteLine("SOCIO DE NEGOCIO ELIMINADO CORRECTAMENTE");
+
             }
             catch (Exception ex)
             {
