@@ -23,6 +23,7 @@ namespace DIAPI_CONN
 
                 //LECTURA (OBTENCIÓN DE DATOS)
                 SAPBusinessPartners bp = new SAPBusinessPartners(cnxMngr.MyCompany);
+                SAPItems oItem = new SAPItems(cnxMngr.MyCompany);
                 //bp.GetBPInfo("PL45800996");
 
                 //if (bp.ActualizarNombre("PL45800996", "LOPEZ RODRIGUEZ JORGE ARMANDO"))
@@ -40,8 +41,11 @@ namespace DIAPI_CONN
                 //if(bp.CrearNuevoSocio())
                 //    Console.WriteLine("SOCIO DE NEGOCIO CREADO CORRECTAMENTE");
 
-                if(bp.Eliminar("C55687416"))
-                    Console.WriteLine("SOCIO DE NEGOCIO ELIMINADO CORRECTAMENTE");
+                //if(bp.Eliminar("C55687416"))
+                //    Console.WriteLine("SOCIO DE NEGOCIO ELIMINADO CORRECTAMENTE");
+
+                if(oItem.Crear("ITEM02221545", "ARTICULO DE PRUEBA SDK"))
+                    Console.WriteLine("ARTICULO CREADO CORRECTAMENTE");
 
             }
             catch (Exception ex)
