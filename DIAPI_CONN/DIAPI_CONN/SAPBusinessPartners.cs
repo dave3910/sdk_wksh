@@ -2,6 +2,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Runtime.InteropServices;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -17,11 +18,11 @@ namespace DIAPI_CONN
             MyCompany = company;
         }
 
+        //LECTURA DE DATOS
         public void GetBPInfo(string codigo)
         {
             try
             {
-
                 MyBP = MyCompany.GetBusinessObject(BoObjectTypes.oBusinessPartners);
                 if (!MyBP.GetByKey(codigo))
                     throw new Exception($"El socio {codigo} no está registrado en la BD");
@@ -54,9 +55,73 @@ namespace DIAPI_CONN
             }
             catch (Exception)
             {
+                //Marshal.ReleaseComObject(MyBP);
+                //MyBP = null;
+                //GC.Collect();
+                throw;
+            }
+        }
+
+        //ACTUALIZACIÓN DE DATOS (OBTENCIÓN DE REGISTRO + UPDATE)
+
+        public bool ActualizarNombre(string codigo, string nuevoNombre)
+        {
+            try
+            {
+                MyBP = MyCompany.GetBusinessObject(BoObjectTypes.oBusinessPartners);
+
+                if (!MyBP.GetByKey(codigo))
+                    throw new Exception($"El socio {codigo} no está registrado en la BD");
+
+                MyBP.CardName = nuevoNombre;
+
+                if (MyBP.Update() != 0)
+                    throw new Exception(MyCompany.GetLastErrorDescription());
+            }
+            catch (Exception)
+            {
 
                 throw;
             }
+
+            return true;
+        }
+
+        public bool ActualizarDireccion(string codigoSocio,string idDireccion, string calle, string distrito)
+        {
+            try
+            {
+                MyBP = MyCompany.GetBusinessObject(BoObjectTypes.oBusinessPartners);
+
+                if (!MyBP.GetByKey(codigoSocio))
+                    throw new Exception($"El socio {codigoSocio} no está registrado en la BD");
+
+                //UBICAR LA DIRECCIÓN (2 ALTERNATIVA)
+                //1: RECORRER LAS DIRECCIONES Y UBICAR LA DIRECCIÓN REQUERIDA
+                //2: CONSULTAR EL ID UNICO DE LA DIRECCIÓN REQUERIDA
+
+                for (int i = 0; i < MyBP.Addresses.Count; i++)
+                {
+                    MyBP.Addresses.SetCurrentLine(i);
+
+                    if(MyBP.Addresses.AddressName == idDireccion)
+                    {
+                        MyBP.Addresses.Street = calle;
+                        MyBP.Addresses.County = distrito;
+                        break;
+                    }
+                }
+
+                if (MyBP.Update() != 0)
+                    throw new Exception(MyCompany.GetLastErrorDescription());
+            }
+            catch (Exception)
+            {
+
+                throw;
+            }
+
+            return true;
         }
     }
 }

@@ -24,16 +24,12 @@ namespace DIAPI_CONN
                 //LECTURA (OBTENCIÓN DE DATOS)
                 SAPBusinessPartners bp = new SAPBusinessPartners(cnxMngr.MyCompany);
                 bp.GetBPInfo("PL45800996");
-            
 
+                //if (bp.ActualizarNombre("PL45800996", "LOPEZ RODRIGUEZ JORGE ARMANDO"))
+                //    Console.WriteLine("SOCIO ACTUALIZADO CORRECTAMENTE");
 
-                //ACTUALIZACIÓN(OBTENCIÓN DEL REGISTRO + ACTUALIZACIÓN)
-
-                //CREACIÓN DE SOCIO
-
-                //ELIMINACIÓN DE SOCIO
-
-
+                if(bp.ActualizarDireccion("PL45800996", "DIR2", "CALLE ACTUALIZADA", "SAN LUIS"))
+                    Console.WriteLine("DIRECCIÓN ACTUALIZADA CORRECTAMENTE");
             }
             catch (Exception ex)
             {
