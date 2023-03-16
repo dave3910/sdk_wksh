@@ -13,7 +13,7 @@ namespace DIAPI_CONN
         {
             try
             {
-                ConecctionManager cnxMngr = new ConecctionManager("NDB@192.168.1.14:30013", "01_ARENUVA_PRODUCCION", "SYSTEM", "HANAB1Admin", "Desarrollo4", "1234") ;
+                ConecctionManager cnxMngr = new ConecctionManager("NDB@192.168.1.14:30013", "01_ARENUVA_PRODUCCION", "SYSTEM", "HANAB1Admin", "Desarrollo4", "1234");
                 cnxMngr.GetConnection();
 
                 Console.WriteLine("DATOS MAESTROS - SOCIOS DE NEGOCIO");
@@ -23,13 +23,8 @@ namespace DIAPI_CONN
 
                 //LECTURA (OBTENCIÓN DE DATOS)
                 SAPBusinessPartners bp = new SAPBusinessPartners(cnxMngr.MyCompany);
-                BusinessPartners oBp = bp.GetBPInfo("PL45800996");
-
-
-
-                Console.WriteLine($"Hola {oBp.CardName}");
-
-                Console.WriteLine("");
+                bp.GetBPInfo("PL45800996");
+            
 
 
                 //ACTUALIZACIÓN(OBTENCIÓN DEL REGISTRO + ACTUALIZACIÓN)

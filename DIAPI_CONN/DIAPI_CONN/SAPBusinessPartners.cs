@@ -26,7 +26,11 @@ namespace DIAPI_CONN
                 if (!MyBP.GetByKey(codigo))
                     throw new Exception($"El socio {codigo} no está registrado en la BD");
 
+                //CAMPO NATIVO EN ESPECÍFICO
                 Console.WriteLine($"Nombre: {MyBP.CardName}");
+                
+                //OBJETO DEPENDIENTE (COLECCIÓN)
+                
                 Console.WriteLine("DIRECCIONES: ");
 
                 for (int i = 0; i < MyBP.Addresses.Count; i++)
@@ -42,6 +46,11 @@ namespace DIAPI_CONN
                     //LISTA[i].ATRIBUTO 1, LISTA.GETELEMENTAT[i]
                 }
 
+                //CAMPOS DE USUARIO
+
+                Console.WriteLine("ALGUNOS CAMPOS DE USUARIO: ");
+                Console.WriteLine($"Nombre de aval: {MyBP.UserFields.Fields.Item("U_VS_AVALNOM").Value}");
+                Console.WriteLine($"Dirección de aval: {MyBP.UserFields.Fields.Item("U_VS_AVALDIR").Value}");
             }
             catch (Exception)
             {
