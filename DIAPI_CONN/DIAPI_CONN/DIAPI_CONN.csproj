@@ -83,11 +83,13 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Compras\SAPEntradaMercancias.cs" />
+    <Compile Include="Compras\SAPOrdenDeCompra.cs" />
     <Compile Include="ConecctionManager.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="SAPBusinessPartners.cs" />
-    <Compile Include="SAPItems.cs" />
+    <Compile Include="DatosMaestros\SAPBusinessPartners.cs" />
+    <Compile Include="DatosMaestros\SAPItems.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
@@ -102,6 +104,11 @@
       <Isolated>False</Isolated>
       <EmbedInteropTypes>True</EmbedInteropTypes>
     </COMReference>
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Bancos\" />
+    <Folder Include="Finanzas\" />
+    <Folder Include="Ventas\" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

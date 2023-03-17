@@ -1,4 +1,5 @@
-﻿using SAPbobsCOM;
+﻿using DIAPI_CONN.Compras;
+using SAPbobsCOM;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -24,6 +25,9 @@ namespace DIAPI_CONN
                 //LECTURA (OBTENCIÓN DE DATOS)
                 SAPBusinessPartners bp = new SAPBusinessPartners(cnxMngr.MyCompany);
                 SAPItems oItem = new SAPItems(cnxMngr.MyCompany);
+                SAPOrdenDeCompra oPOR = new SAPOrdenDeCompra(cnxMngr.MyCompany);
+                SAPEntradaMercancias oEM = new SAPEntradaMercancias(cnxMngr.MyCompany);
+
                 //bp.GetBPInfo("PL45800996");
 
                 //if (bp.ActualizarNombre("PL45800996", "LOPEZ RODRIGUEZ JORGE ARMANDO"))
@@ -53,8 +57,13 @@ namespace DIAPI_CONN
                 //if (oItem.Eliminar("ITEM02221545"))
                 //    Console.WriteLine("ARTICULO ELIMINADO CORRECTAMENTE");
 
-                bp.MostrarListaSociosReglaNegocio();
+                //bp.MostrarListaSociosReglaNegocio(); //USO DE RECORDSET
 
+                //int docEntryOrdenCompra = oPOR.Crear();
+                //    Console.WriteLine($"ORDEN DE COMPRA CREADA EXITOSAMENTE. DocEntry: {docEntryOrdenCompra}");
+
+                int docEntryEM = oEM.Crear();
+                Console.WriteLine($"ENTRADA DE MERCADERÍA CREADA EXITOSAMENTE. DocEntry: {docEntryEM}");
             }
             catch (Exception ex)
             {
