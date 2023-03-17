@@ -16,10 +16,10 @@ namespace DIAPI_CONN
                 ConecctionManager cnxMngr = new ConecctionManager("NDB@192.168.1.14:30013", "01_ARENUVA_PRODUCCION", "SYSTEM", "HANAB1Admin", "Desarrollo4", "1234");
                 cnxMngr.GetConnection();
 
-                Console.WriteLine("DATOS MAESTROS - SOCIOS DE NEGOCIO");
+                //Console.WriteLine("DATOS MAESTROS - SOCIOS DE NEGOCIO");
 
-                //SOCIOS DE NEGOCIO
-                Console.WriteLine("SOCIOS DE NEGOCIO - OPERACIÓN GET");
+                ////SOCIOS DE NEGOCIO
+                //Console.WriteLine("SOCIOS DE NEGOCIO - OPERACIÓN GET");
 
                 //LECTURA (OBTENCIÓN DE DATOS)
                 SAPBusinessPartners bp = new SAPBusinessPartners(cnxMngr.MyCompany);
@@ -44,8 +44,16 @@ namespace DIAPI_CONN
                 //if(bp.Eliminar("C55687416"))
                 //    Console.WriteLine("SOCIO DE NEGOCIO ELIMINADO CORRECTAMENTE");
 
-                if(oItem.Crear("ITEM02221545", "ARTICULO DE PRUEBA SDK"))
-                    Console.WriteLine("ARTICULO CREADO CORRECTAMENTE");
+                //if(oItem.Crear("ITEM02221545", "ARTICULO DE PRUEBA SDK"))
+                //    Console.WriteLine("ARTICULO CREADO CORRECTAMENTE");
+
+                //if(oItem.ActualizarArticulo("ITEM02221545"))
+                //    Console.WriteLine("ARTICULO ACTUALIZADO CORRECTAMENTE");
+
+                //if (oItem.Eliminar("ITEM02221545"))
+                //    Console.WriteLine("ARTICULO ELIMINADO CORRECTAMENTE");
+
+                bp.MostrarListaSociosReglaNegocio();
 
             }
             catch (Exception ex)

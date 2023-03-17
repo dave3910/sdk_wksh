@@ -199,5 +199,46 @@ namespace DIAPI_CONN
 
             return true;
         }
+
+        public void MostrarListaSociosReglaNegocio()
+        {
+            try
+            {
+                string nombre, codigo;
+                string query = $"CALL SP_XPS_GETSOCIOS()";
+                Recordset recordset = MyCompany.GetBusinessObject(BoObjectTypes.BoRecordset);
+
+                recordset.DoQuery(query);
+
+                if (recordset.RecordCount == 0)
+                    throw new Exception("No se han encontrado socios");
+
+                //for (int i = 0; i < recordset.RecordCount - 1; i++)
+                //{
+                //    nombre = recordset.Fields.Item("Nombre").Value;
+                //    codigo = recordset.Fields.Item("Codigo").Value;
+
+
+                //    Console.WriteLine(string.Join("-", codigo, nombre));
+                //    recordset.MoveNext();
+                //}
+
+                while (!recordset.EoF)
+                {
+                    //articulo.colleccion.SetCurrentLine(i)
+                    nombre = recordset.Fields.Item("Nombre").Value;
+                    codigo = recordset.Fields.Item("Codigo").Value;
+
+
+                    Console.WriteLine(string.Join("-", codigo, nombre));
+                    recordset.MoveNext();
+                }
+            }
+            catch (Exception)
+            {
+
+                throw;
+            }
+        }
     }
 }
