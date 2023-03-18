@@ -1,4 +1,5 @@
-﻿using DIAPI_CONN.Compras;
+﻿using DIAPI_CONN.Bancos;
+using DIAPI_CONN.Compras;
 using SAPbobsCOM;
 using System;
 using System.Collections.Generic;
@@ -30,6 +31,7 @@ namespace DIAPI_CONN
                 SAPFacturaProveedores oFP = new SAPFacturaProveedores(cnxMngr.MyCompany);
                 SAPNotaCreditoProveedores oNCP = new SAPNotaCreditoProveedores(cnxMngr.MyCompany);
                 SAPNotaDebitoProveedores oNDP = new SAPNotaDebitoProveedores(cnxMngr.MyCompany);
+                SAPPagosEfectuados oPE = new SAPPagosEfectuados(cnxMngr.MyCompany);
 
                 //bp.GetBPInfo("PL45800996");
 
@@ -78,8 +80,11 @@ namespace DIAPI_CONN
                 //    Console.WriteLine($"NOTA CREDITO PROVEEDORES CREADA EXITOSAMENTE. DocEntry: {docEntryNCP}");
 
 
-                int docEntryND = oNDP.Crear();
-                Console.WriteLine($"NOTA DE DÉBITO PROVEEDORES CREADA EXITOSAMENTE. DocEntry: {docEntryND}");
+                //int docEntryND = oNDP.Crear();
+                //Console.WriteLine($"NOTA DE DÉBITO PROVEEDORES CREADA EXITOSAMENTE. DocEntry: {docEntryND}");
+
+                int dePE = oPE.CrearPago();
+                Console.WriteLine($"PAGO EFECTUADO CREADO EXITOSAMENTE. DocEntry: {dePE}");
 
             }
             catch (Exception ex)

@@ -83,6 +83,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Bancos\SAPPagosEfectuados.cs" />
     <Compile Include="Compras\SAPEntradaMercancias.cs" />
     <Compile Include="Compras\SAPNotaDebitoProveedores.cs" />
     <Compile Include="Compras\SAPFacturaProveedores.cs" />
@@ -109,7 +110,6 @@
     </COMReference>
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="Bancos\" />
     <Folder Include="Finanzas\" />
     <Folder Include="Ventas\" />
   </ItemGroup>
