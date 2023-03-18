@@ -84,6 +84,9 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Compras\SAPEntradaMercancias.cs" />
+    <Compile Include="Compras\SAPNotaDebitoProveedores.cs" />
+    <Compile Include="Compras\SAPFacturaProveedores.cs" />
+    <Compile Include="Compras\SAPNotaCreditoProveedores.cs" />
     <Compile Include="Compras\SAPOrdenDeCompra.cs" />
     <Compile Include="ConecctionManager.cs" />
     <Compile Include="Program.cs" />

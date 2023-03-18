@@ -27,6 +27,9 @@ namespace DIAPI_CONN
                 SAPItems oItem = new SAPItems(cnxMngr.MyCompany);
                 SAPOrdenDeCompra oPOR = new SAPOrdenDeCompra(cnxMngr.MyCompany);
                 SAPEntradaMercancias oEM = new SAPEntradaMercancias(cnxMngr.MyCompany);
+                SAPFacturaProveedores oFP = new SAPFacturaProveedores(cnxMngr.MyCompany);
+                SAPNotaCreditoProveedores oNCP = new SAPNotaCreditoProveedores(cnxMngr.MyCompany);
+                SAPNotaDebitoProveedores oNDP = new SAPNotaDebitoProveedores(cnxMngr.MyCompany);
 
                 //bp.GetBPInfo("PL45800996");
 
@@ -62,8 +65,22 @@ namespace DIAPI_CONN
                 //int docEntryOrdenCompra = oPOR.Crear();
                 //    Console.WriteLine($"ORDEN DE COMPRA CREADA EXITOSAMENTE. DocEntry: {docEntryOrdenCompra}");
 
-                int docEntryEM = oEM.Crear();
-                Console.WriteLine($"ENTRADA DE MERCADERÍA CREADA EXITOSAMENTE. DocEntry: {docEntryEM}");
+                //int docEntryEM = oEM.Crear();
+                //Console.WriteLine($"ENTRADA DE MERCADERÍA CREADA EXITOSAMENTE. DocEntry: {docEntryEM}");
+
+                //int docEntryFactra = oFP.Crear();
+                //    Console.WriteLine($"FACTURA DE PROVEEDORES CREADA EXITOSAMENTE. DocEntry: {docEntryFactra}");
+
+                //if (oFP.Actualizar(1817))
+                //    Console.WriteLine("FACTURA PROVEEDORES ACTUALIZADA CORRECTAMENTE");
+
+                //int docEntryNCP = oNCP.Crear();
+                //    Console.WriteLine($"NOTA CREDITO PROVEEDORES CREADA EXITOSAMENTE. DocEntry: {docEntryNCP}");
+
+
+                int docEntryND = oNDP.Crear();
+                Console.WriteLine($"NOTA DE DÉBITO PROVEEDORES CREADA EXITOSAMENTE. DocEntry: {docEntryND}");
+
             }
             catch (Exception ex)
             {
