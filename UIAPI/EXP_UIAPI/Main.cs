@@ -2,9 +2,11 @@
 using SAPbouiCOM;
 using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Xml;
 
 namespace EXP_UIAPI
 {
@@ -25,6 +27,34 @@ namespace EXP_UIAPI
             ConfigurarFiltros();
             //IMPLEMENTAR LOS EVENTOS PRINCIPALES (ITEMEVENT, FORMDATAEVENT, APPEVENT)
             ConfigurarEventosPrincipales();
+
+            CrearMenues();
+        }
+
+        private void CrearMenues()
+        {
+            XmlDocument xmlDocument = new XmlDocument();
+            string rutaMenuXML = string.Empty;
+            try
+            {
+                sboApplication.Forms.GetFormByTypeAndCount(169, 1).Freeze(true);
+                rutaMenuXML = Path.Combine(System.Windows.Forms.Application.StartupPath, "Menues", "Menu.xml");
+                xmlDocument.Load(rutaMenuXML);
+                sboApplication.LoadBatchActions(xmlDocument.InnerXml);
+
+                SAPbouiCOM.MenuItem menu = sboApplication.Menus.Item("MNUID_CRUC");
+                menu.Image = Path.Combine(System.Windows.Forms.Application.StartupPath, "invoice_15.jpg");
+            }
+            catch (FileNotFoundException)
+            {
+                //sboApplication.StatusBarErrorMsg("El recurso menu.xml, no fue encontrado");
+            }
+            catch { throw; }
+            finally
+            {
+                sboApplication.Forms.GetFormByTypeAndCount(169, 1).Freeze(false);
+                sboApplication.Forms.GetFormByTypeAndCount(169, 1).Update();
+            }
         }
 
         private void ConfigurarEventosPrincipales()
@@ -45,8 +75,8 @@ namespace EXP_UIAPI
                 {
                     case "133": FacturaDeudores_ItemEvent.HandleItemEvent(FormUID, pVal, out BubbleEvent); break;
                     case "139": OrdenesVenta_ItemEvent.HandleItemEvent(FormUID, pVal, out BubbleEvent); break;
-                    case "BOLETA": BOLETA_ItemEvent.HandleItemEvent(FormUID, pVal, out BubbleEvent); break;
                 }
+
             }
             catch (Exception)
             {
@@ -86,9 +116,9 @@ namespace EXP_UIAPI
 
             oFilter = oFilters.Add(BoEventTypes.et_FORM_LOAD);
             oFilter.AddEx("133");
-            oFilter.AddEx("BOLETA");
+            //oFilter.AddEx("BOLETA");
 
-            oFilter = oFilters.Add(BoEventTypes.et_CLICK);
+            oFilter = oFilters.Add(BoEventTypes.et_ITEM_PRESSED);
             oFilter.AddEx("133"); //FACTURAS
             oFilter.AddEx("139"); //ORDENES DE VENTA
             //oFilter.AddEx("140"); //???
