@@ -1,4 +1,5 @@
 ﻿using EXP_UIAPI.ItemEvent;
+using EXP_UIAPI.MenuEvents;
 using SAPbouiCOM;
 using System;
 using System.Collections.Generic;
@@ -59,29 +60,56 @@ namespace EXP_UIAPI
 
         private void ConfigurarEventosPrincipales()
         {
+            sboApplication.MenuEvent += SboApplication_MenuEvent;
             //sboApplication.AppEvent += SboApplication_AppEvent;
             sboApplication.ItemEvent += SboApplication_ItemEvent;
             //sboApplication.FormDataEvent += SboApplication_FormDataEvent;
-            //sboApplication.MenuEvent += SboApplication_MenuEvent;
+            
         }
 
-        private void SboApplication_ItemEvent(string FormUID, ref SAPbouiCOM.ItemEvent pVal, out bool BubbleEvent)
+        private void SboApplication_MenuEvent(ref MenuEvent pVal, out bool BubbleEvent)
         {
             try
             {
                 BubbleEvent = true;
 
-                switch (pVal.FormTypeEx)
+                if(!pVal.BeforeAction)
                 {
-                    case "133": FacturaDeudores_ItemEvent.HandleItemEvent(FormUID, pVal, out BubbleEvent); break;
-                    case "139": OrdenesVenta_ItemEvent.HandleItemEvent(FormUID, pVal, out BubbleEvent); break;
-                }
+                    switch (pVal.MenuUID)
+                    {
+                        case "MNUID_CRUC": FormAPI_MenuEvents.CrearFormulario(); break;
 
+                        default:
+                            break;
+                    }
+                }
             }
             catch (Exception)
             {
 
                 throw;
+            }
+        }
+
+        private void SboApplication_ItemEvent(string FormUID, ref SAPbouiCOM.ItemEvent pVal, out bool BubbleEvent)
+        {
+            BubbleEvent = true;
+
+            try
+            {
+                switch (pVal.FormTypeEx)
+                {
+                    case "133": FacturaDeudores_ItemEvent.HandleItemEvent(FormUID, pVal, out BubbleEvent); break;
+                    case "139": OrdenesVenta_ItemEvent.HandleItemEvent(FormUID, pVal, out BubbleEvent); break;
+
+                    case "FrmAPI": FrmAPI_ItemEvent.HandleItemEvent(FormUID, pVal, out BubbleEvent); break;
+                }
+
+            }
+            catch (Exception ex)
+            {
+                BubbleEvent = false;
+                Globales.oAplication.StatusBar.SetText(ex.Message);
             }
         }
 
@@ -121,11 +149,14 @@ namespace EXP_UIAPI
             oFilter = oFilters.Add(BoEventTypes.et_ITEM_PRESSED);
             oFilter.AddEx("133"); //FACTURAS
             oFilter.AddEx("139"); //ORDENES DE VENTA
+            oFilter.AddEx("FrmAPI"); //FORMULARIO API
             //oFilter.AddEx("140"); //???
             //oFilter.AddEx("141"); //???
             //oFilter.AddEx("142"); //???
             ////....
 
+            oFilter = oFilters.Add(BoEventTypes.et_MENU_CLICK);
+            oFilter.AddEx("139");
             sboApplication.SetFilter(oFilters);
         }
 
