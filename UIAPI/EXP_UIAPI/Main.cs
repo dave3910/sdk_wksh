@@ -157,6 +157,10 @@ namespace EXP_UIAPI
 
             oFilter = oFilters.Add(BoEventTypes.et_MENU_CLICK);
             oFilter.AddEx("139");
+
+            oFilter = oFilters.Add(BoEventTypes.et_CHOOSE_FROM_LIST);
+            oFilter.AddEx("FrmAPI"); //FORMULARIO API
+
             sboApplication.SetFilter(oFilters);
         }
 

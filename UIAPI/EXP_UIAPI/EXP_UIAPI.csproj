@@ -136,6 +136,9 @@
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
     <Content Include="Menues\Menues_Submenues.xml" />
+    <Content Include="Recursos\Formularios\FormUDO.srf">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
     <Content Include="Recursos\Formularios\FormAPI.srf">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
