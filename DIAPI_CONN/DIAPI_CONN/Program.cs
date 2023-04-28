@@ -15,7 +15,7 @@ namespace DIAPI_CONN
         {
             try
             {
-                ConecctionManager cnxMngr = new ConecctionManager("NDB@192.168.1.14:30013", "01_ARENUVA_PRODUCCION", "SYSTEM", "HANAB1Admin", "Desarrollo4", "1234");
+                ConecctionManager cnxMngr = new ConecctionManager("DESKTOP-7SF4RJC", "DEMO", "manager", "1234", "manager", "1234");
                 cnxMngr.GetConnection();
 
                 //Console.WriteLine("DATOS MAESTROS - SOCIOS DE NEGOCIO");

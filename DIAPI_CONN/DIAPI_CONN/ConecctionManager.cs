@@ -45,6 +45,13 @@ namespace DIAPI_CONN
                 MyCompany.UserName = SAPUser; // "Desarrollo4";
                 MyCompany.Password = SAPPass; // "1234";
 
+                MyCompany.Server = "DESKTOP-7SF4RJC";
+                MyCompany.DbServerType = BoDataServerTypes.dst_MSSQL2019;
+                MyCompany.CompanyDB = "DEMO";
+                MyCompany.UserName = "manager";
+                MyCompany.Password = "1234";
+                MyCompany.language = BoSuppLangs.ln_Spanish_La;
+
                 MyCompany.language = BoSuppLangs.ln_Spanish_La;
 
                 if (MyCompany.Connect() != 0)

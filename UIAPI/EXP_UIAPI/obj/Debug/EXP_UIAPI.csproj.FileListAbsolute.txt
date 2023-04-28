@@ -1,0 +1,6 @@
+D:\DesarrolloSAPSDK\CLASE_SDK\UIAPI\EXP_UIAPI\obj\Debug\EXP_UIAPI.csproj.AssemblyReference.cache
+D:\DesarrolloSAPSDK\CLASE_SDK\UIAPI\EXP_UIAPI\obj\Debug\EXP_UIAPI.csproj.SuggestedBindingRedirects.cache
+D:\DesarrolloSAPSDK\CLASE_SDK\UIAPI\EXP_UIAPI\obj\Debug\Interop.SAPbobsCOM.dll
+D:\DesarrolloSAPSDK\CLASE_SDK\UIAPI\EXP_UIAPI\obj\Debug\Interop.SAPbouiCOM.dll
+D:\DesarrolloSAPSDK\CLASE_SDK\UIAPI\EXP_UIAPI\obj\Debug\EXP_UIAPI.csproj.ResolveComReference.cache
+D:\DesarrolloSAPSDK\CLASE_SDK\UIAPI\EXP_UIAPI\obj\Debug\EXP_UIAPI.csproj.GenerateResource.cache

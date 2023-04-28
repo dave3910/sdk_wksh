@@ -42,6 +42,7 @@ namespace EXP_UIAPI.ItemEvent
                 switch (pVal.ItemUID)
                 {
                     case "Item_5": GetById(formUID, pVal).Wait(); break;
+                    case "Item_6": GetList(formUID, pVal).Wait(); break;
 
                     default:
                         break;
@@ -69,13 +70,27 @@ namespace EXP_UIAPI.ItemEvent
                 if (string.IsNullOrEmpty(idUsuario))
                     throw new Exception("Debe indicar un id de usuario");
 
-                User user =  await APIUsuarios.GetUserById(idUsuario);
+                 User user =  await APIUsuarios.GetUserById(idUsuario);
 
-                Globales.oAplication.MessageBox($"Nombre:  { user.name} . Usuario: {user.username} . Correo: {user.email} ");
-            
-                //lista de usuarios
+                Globales.oAplication.MessageBox($"Nombre:  { user.name} . Usuario: {user.username} . Correo: {user.email} ");            
 
                 //cargar en grilla (
+            }
+        }
+
+        private static async Task GetList(string formUID, SAPbouiCOM.ItemEvent pVal)
+        {
+
+
+            if (!pVal.BeforeAction)
+            {
+                Form myForm = Globales.oAplication.Forms.Item(formUID);
+                
+
+                //lista de usuarios
+                List<User> listUsers = await APIUsuarios.GetUserList();
+                //Globales.oAplication.MessageBox($"Nombre:  {user.name} . Usuario: {user.username} . Correo: {user.email} ");
+
             }
         }
     }
