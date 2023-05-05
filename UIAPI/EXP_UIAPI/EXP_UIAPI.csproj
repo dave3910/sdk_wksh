@@ -79,9 +79,11 @@
     <Compile Include="DTO\User.cs" />
     <Compile Include="Globales.cs" />
     <Compile Include="ItemEvent\FacturaDeudores_ItemEvent.cs" />
+    <Compile Include="ItemEvent\FrmUDO_ItemEvent.cs" />
     <Compile Include="ItemEvent\FrmAPI_ItemEvent.cs" />
     <Compile Include="ItemEvent\OrdenesVenta_ItemEvent.cs" />
     <Compile Include="Main.cs" />
+    <Compile Include="MenuEvents\FormUDO_MenuEvents.cs" />
     <Compile Include="MenuEvents\FormAPI_MenuEvents.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

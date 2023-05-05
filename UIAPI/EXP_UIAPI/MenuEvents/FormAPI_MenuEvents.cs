@@ -17,13 +17,13 @@ namespace EXP_UIAPI.MenuEvents
             {
                 var formUID = string.Concat(TYPE, new Random().Next(0, 1000));
                 Globales.CrearFormulario(PATH, TYPE, formUID);
+
+
             }
             catch (Exception)
             {
                 throw;
             }
-
-
         }
     }
 }

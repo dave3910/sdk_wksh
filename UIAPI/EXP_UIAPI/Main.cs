@@ -63,8 +63,13 @@ namespace EXP_UIAPI
             sboApplication.MenuEvent += SboApplication_MenuEvent;
             //sboApplication.AppEvent += SboApplication_AppEvent;
             sboApplication.ItemEvent += SboApplication_ItemEvent;
-            //sboApplication.FormDataEvent += SboApplication_FormDataEvent;
+            sboApplication.FormDataEvent += SboApplication_FormDataEvent;
             
+        }
+
+        private void SboApplication_FormDataEvent(ref BusinessObjectInfo BusinessObjectInfo, out bool BubbleEvent)
+        {
+            BubbleEvent = true;
         }
 
         private void SboApplication_MenuEvent(ref MenuEvent pVal, out bool BubbleEvent)
@@ -78,6 +83,7 @@ namespace EXP_UIAPI
                     switch (pVal.MenuUID)
                     {
                         case "MNUID_CRUC": FormAPI_MenuEvents.CrearFormulario(); break;
+                        case "MNUID_UDO": FormUDO_MenuEvents.CrearFormulario(); break;
 
                         default:
                             break;
@@ -99,10 +105,13 @@ namespace EXP_UIAPI
             {
                 switch (pVal.FormTypeEx)
                 {
+                    //OBJETOS NATIVO
                     case "133": FacturaDeudores_ItemEvent.HandleItemEvent(FormUID, pVal, out BubbleEvent); break;
                     case "139": OrdenesVenta_ItemEvent.HandleItemEvent(FormUID, pVal, out BubbleEvent); break;
 
+                    //OBJETOS DE USUARIO
                     case "FrmAPI": FrmAPI_ItemEvent.HandleItemEvent(FormUID, pVal, out BubbleEvent); break;
+                    case "FrmUDO": FrmUDO_ItemEvent.HandleItemEvent(FormUID, pVal, out BubbleEvent); break;
                 }
 
             }
@@ -144,12 +153,14 @@ namespace EXP_UIAPI
 
             oFilter = oFilters.Add(BoEventTypes.et_FORM_LOAD);
             oFilter.AddEx("133");
+            oFilter.AddEx("FrmUDO"); //FORMULARIO udo
             //oFilter.AddEx("BOLETA");
 
             oFilter = oFilters.Add(BoEventTypes.et_ITEM_PRESSED);
             oFilter.AddEx("133"); //FACTURAS
             oFilter.AddEx("139"); //ORDENES DE VENTA
             oFilter.AddEx("FrmAPI"); //FORMULARIO API
+            oFilter.AddEx("FrmUDO"); //FORMULARIO UDO
             //oFilter.AddEx("140"); //???
             //oFilter.AddEx("141"); //???
             //oFilter.AddEx("142"); //???
@@ -157,9 +168,13 @@ namespace EXP_UIAPI
 
             oFilter = oFilters.Add(BoEventTypes.et_MENU_CLICK);
             oFilter.AddEx("139");
+            oFilter.AddEx("FrmUDO"); //FORMULARIO API
 
             oFilter = oFilters.Add(BoEventTypes.et_CHOOSE_FROM_LIST);
             oFilter.AddEx("FrmAPI"); //FORMULARIO API
+
+            oFilter = oFilters.Add(BoEventTypes.et_COMBO_SELECT);
+            oFilter.AddEx("FrmUDO"); //FORMULARIO API
 
             sboApplication.SetFilter(oFilters);
         }

@@ -4,3 +4,26 @@ D:\DesarrolloSAPSDK\CLASE_SDK\UIAPI\EXP_UIAPI\obj\Debug\Interop.SAPbobsCOM.dll
 D:\DesarrolloSAPSDK\CLASE_SDK\UIAPI\EXP_UIAPI\obj\Debug\Interop.SAPbouiCOM.dll
 D:\DesarrolloSAPSDK\CLASE_SDK\UIAPI\EXP_UIAPI\obj\Debug\EXP_UIAPI.csproj.ResolveComReference.cache
 D:\DesarrolloSAPSDK\CLASE_SDK\UIAPI\EXP_UIAPI\obj\Debug\EXP_UIAPI.csproj.GenerateResource.cache
+G:\David\Personal\Proyectos\XPLORA - CAPACITACION\ConexionDI\sdk_wksh\UIAPI\EXP_UIAPI\bin\Debug\invoice_15.jpg
+G:\David\Personal\Proyectos\XPLORA - CAPACITACION\ConexionDI\sdk_wksh\UIAPI\EXP_UIAPI\bin\Debug\Menues\Menu.xml
+G:\David\Personal\Proyectos\XPLORA - CAPACITACION\ConexionDI\sdk_wksh\UIAPI\EXP_UIAPI\bin\Debug\Recursos\Formularios\FormUDO.srf
+G:\David\Personal\Proyectos\XPLORA - CAPACITACION\ConexionDI\sdk_wksh\UIAPI\EXP_UIAPI\bin\Debug\Recursos\Formularios\FormAPI.srf
+G:\David\Personal\Proyectos\XPLORA - CAPACITACION\ConexionDI\sdk_wksh\UIAPI\EXP_UIAPI\bin\Debug\EXP_UIAPI.exe.config
+G:\David\Personal\Proyectos\XPLORA - CAPACITACION\ConexionDI\sdk_wksh\UIAPI\EXP_UIAPI\bin\Debug\EXP_UIAPI.exe
+G:\David\Personal\Proyectos\XPLORA - CAPACITACION\ConexionDI\sdk_wksh\UIAPI\EXP_UIAPI\bin\Debug\EXP_UIAPI.pdb
+G:\David\Personal\Proyectos\XPLORA - CAPACITACION\ConexionDI\sdk_wksh\UIAPI\EXP_UIAPI\bin\Debug\Flurl.dll
+G:\David\Personal\Proyectos\XPLORA - CAPACITACION\ConexionDI\sdk_wksh\UIAPI\EXP_UIAPI\bin\Debug\Flurl.Http.dll
+G:\David\Personal\Proyectos\XPLORA - CAPACITACION\ConexionDI\sdk_wksh\UIAPI\EXP_UIAPI\bin\Debug\Newtonsoft.Json.dll
+G:\David\Personal\Proyectos\XPLORA - CAPACITACION\ConexionDI\sdk_wksh\UIAPI\EXP_UIAPI\bin\Debug\Flurl.xml
+G:\David\Personal\Proyectos\XPLORA - CAPACITACION\ConexionDI\sdk_wksh\UIAPI\EXP_UIAPI\bin\Debug\Flurl.Http.xml
+G:\David\Personal\Proyectos\XPLORA - CAPACITACION\ConexionDI\sdk_wksh\UIAPI\EXP_UIAPI\bin\Debug\Newtonsoft.Json.xml
+G:\David\Personal\Proyectos\XPLORA - CAPACITACION\ConexionDI\sdk_wksh\UIAPI\EXP_UIAPI\obj\Debug\EXP_UIAPI.csproj.AssemblyReference.cache
+G:\David\Personal\Proyectos\XPLORA - CAPACITACION\ConexionDI\sdk_wksh\UIAPI\EXP_UIAPI\obj\Debug\Interop.SAPbobsCOM.dll
+G:\David\Personal\Proyectos\XPLORA - CAPACITACION\ConexionDI\sdk_wksh\UIAPI\EXP_UIAPI\obj\Debug\Interop.SAPbouiCOM.dll
+G:\David\Personal\Proyectos\XPLORA - CAPACITACION\ConexionDI\sdk_wksh\UIAPI\EXP_UIAPI\obj\Debug\EXP_UIAPI.csproj.ResolveComReference.cache
+G:\David\Personal\Proyectos\XPLORA - CAPACITACION\ConexionDI\sdk_wksh\UIAPI\EXP_UIAPI\obj\Debug\EXP_UIAPI.Properties.Resources.resources
+G:\David\Personal\Proyectos\XPLORA - CAPACITACION\ConexionDI\sdk_wksh\UIAPI\EXP_UIAPI\obj\Debug\EXP_UIAPI.csproj.GenerateResource.cache
+G:\David\Personal\Proyectos\XPLORA - CAPACITACION\ConexionDI\sdk_wksh\UIAPI\EXP_UIAPI\obj\Debug\EXP_UIAPI.csproj.CoreCompileInputs.cache
+G:\David\Personal\Proyectos\XPLORA - CAPACITACION\ConexionDI\sdk_wksh\UIAPI\EXP_UIAPI\obj\Debug\EXP_UIAPI.csproj.CopyComplete
+G:\David\Personal\Proyectos\XPLORA - CAPACITACION\ConexionDI\sdk_wksh\UIAPI\EXP_UIAPI\obj\Debug\EXP_UIAPI.exe
+G:\David\Personal\Proyectos\XPLORA - CAPACITACION\ConexionDI\sdk_wksh\UIAPI\EXP_UIAPI\obj\Debug\EXP_UIAPI.pdb
