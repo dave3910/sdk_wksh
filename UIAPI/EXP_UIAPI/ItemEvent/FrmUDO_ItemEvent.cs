@@ -1,5 +1,6 @@
 ﻿using EXP_UIAPI.APIService;
 using EXP_UIAPI.DTO;
+using SAPbobsCOM;
 using SAPbouiCOM;
 using System;
 using System.Collections.Generic;
@@ -109,7 +110,7 @@ namespace EXP_UIAPI.ItemEvent
                 {
                     //FILTRAR
 
-                    ChooseFromList cflUsers = myForm.ChooseFromLists.Item("CFL_OUSR");
+                    SAPbouiCOM.ChooseFromList cflUsers = myForm.ChooseFromLists.Item("CFL_OUSR");
                     cflUsers.SetConditions(null);
                     Conditions conditions = cflUsers.GetConditions();
                     Condition cnd = conditions.Add();
@@ -147,8 +148,115 @@ namespace EXP_UIAPI.ItemEvent
                 switch (pVal.ItemUID)
                 {
                     case "Item_6": GetList(formUID, pVal).Wait(); break;
+                    case "1": CrearUsuarios(out bubbleEvent, formUID, pVal); break;
                     default: break;
                 }
+            }
+            catch (Exception)
+            {
+                throw;
+            }
+        }
+
+        private static void CrearUsuarios(out bool bubbleEvent, string formUID, SAPbouiCOM.ItemEvent pVal)
+        {
+            bubbleEvent = true;
+            Form myForm = Globales.oAplication.Forms.Item(formUID);
+
+            try
+            {
+                if(pVal.BeforeAction && myForm.Mode == BoFormMode.fm_ADD_MODE)
+                {
+                    int rpta = Globales.oAplication.MessageBox("Esta seguro de crear los usuarios ?", 2, "Sí", "No");
+
+                    if(rpta != 1)
+                    {
+                        bubbleEvent = false;
+                        return;
+                    }
+
+                    Matrix matrix = myForm.Items.Item("Item_7").Specific;
+                    DBDataSource ds = myForm.DataSources.DBDataSources.Item("@VS_USR1");
+
+                    if (matrix.RowCount == 0)
+                        throw new Exception("No puede crear porque no hay usuarios");
+
+                    bubbleEvent = UsuariosCreados(matrix, ds);
+                }
+            }
+            catch (Exception)
+            {
+
+                throw;
+            }
+        }
+
+        private static bool UsuariosCreados(Matrix matrix, DBDataSource ds)
+        {
+            bool usuariosCreados = true;
+
+
+            try
+            {
+                if (Globales.oCompány.InTransaction)
+                    Globales.oCompány.EndTransaction(BoWfTransOpt.wf_RollBack);
+
+                Globales.oCompány.StartTransaction();
+
+                for (int i = 1; i <= 2; i++)
+                {
+                    try
+                    {
+                        string id = CrearUsuario(matrix, i);
+                        ds.SetValue("U_VS_IDSAP", i -1, id);
+                    }
+                    catch (Exception ex)
+                    {
+                        Globales.oAplication.StatusBar.SetText(ex.Message, BoMessageTime.bmt_Short, BoStatusBarMessageType.smt_Error);
+
+                        //if (Globales.oCompány.InTransaction)
+                        Globales.oCompány.EndTransaction(BoWfTransOpt.wf_RollBack);
+
+                        usuariosCreados = false;
+                        break;
+                    }
+                }
+
+                if(usuariosCreados)
+                {
+                    Globales.oCompány.EndTransaction(BoWfTransOpt.wf_Commit);
+                    matrix.LoadFromDataSource();
+                }
+                    
+
+
+            }
+            catch (Exception)
+            {
+
+                throw;
+            }
+
+            return usuariosCreados;
+        }
+
+        private static string CrearUsuario(Matrix matrix, int i)
+        {
+            try
+            {
+                Users oUsuario = Globales.oCompány.GetBusinessObject(BoObjectTypes.oUsers);
+
+                oUsuario.UserCode = matrix.Columns.Item("Col_2").Cells.Item(i).Specific.Value + "_2";
+                oUsuario.UserPassword = "1234";
+                oUsuario.eMail = matrix.Columns.Item("Col_3").Cells.Item(i).Specific.Value;
+                oUsuario.UserName = matrix.Columns.Item("Col_1").Cells.Item(i).Specific.Value;
+                oUsuario.MobilePhoneNumber = matrix.Columns.Item("Col_5").Cells.Item(i).Specific.Value;
+                oUsuario.UserFields.Fields.Item("U_VS_DIRE").Value = matrix.Columns.Item("Col_4").Cells.Item(i).Specific.Value;
+
+                if (oUsuario.Add() != 0)
+                    throw new Exception(Globales.oCompány.GetLastErrorDescription());
+
+                return Globales.oCompány.GetNewObjectKey();
             }
             catch (Exception)
             {
@@ -177,50 +285,73 @@ namespace EXP_UIAPI.ItemEvent
 
         private static async Task GetList(string formUID, SAPbouiCOM.ItemEvent pVal)
         {
+            Form myForm = null;
             if (!pVal.BeforeAction)
             {
-                Form myForm = Globales.oAplication.Forms.Item(formUID);
-
-                //lista de usuarios
-                List<User> listUsers = await APIUsuarios.GetUserList();
-                //LLENAR LA GRILLA
-
-                DBDataSource ds = myForm.DataSources.DBDataSources.Item("@VS_USR1");
-                int i = 0;
-
-                foreach (User usuario in listUsers)
+                try
                 {
-                    try
-                    {
-                        ds.InsertRecord(i);
-                        ds.SetValue("U_VS_IDUS", i, usuario.id.ToString());
-                        ds.SetValue("U_VS_NOMB", i, usuario.name.ToString());
-                        ds.SetValue("U_VS_USUA", i, usuario.username.ToString());
-                        ds.SetValue("U_VS_CORR", i, usuario.email.ToString());
-                        ds.SetValue("U_VS_DIREC", i, usuario.address.street.ToString());
-                        ds.SetValue("U_VS_TELF", i, usuario.phone.ToString());
-                        ds.SetValue("U_VS_COMP", i, usuario.company.name.ToString());
+                    myForm = Globales.oAplication.Forms.Item(formUID);
+                    myForm.Freeze(true);
 
-                        //dt.Rows.Add(i + 1);
-                        //dt.SetValue("ID", i, usuario.id.ToString());
-                        //dt.SetValue("Nombre", i, usuario.name);
-                        //dt.SetValue("Usuario", i, usuario.username);
-                        //dt.SetValue("Correo", i, usuario.email);
-                        //dt.SetValue("Direccion", i, usuario.address.street);
-                        //dt.SetValue("Telefono", i, usuario.phone);
-                        //dt.SetValue("Compania", i, usuario.company.name);
-                    }
-                    catch (Exception ex)
+                    //lista de usuarios
+                    List<User> listUsers = await APIUsuarios.GetUserList();
+                    //LLENAR LA GRILLA
+
+                    DBDataSource ds = myForm.DataSources.DBDataSources.Item("@VS_USR1");
+                    int i = 0;
+
+                    ds.Clear();
+
+                    foreach (User usuario in listUsers)
                     {
-                        throw;
+                        try
+                        {
+                            ds.InsertRecord(i);
+                            ds.SetValue("LineId", i, (i + 1).ToString());
+                            ds.SetValue("U_VS_IDUS", i, usuario.id.ToString());
+                            ds.SetValue("U_VS_NOMB", i, usuario.name.ToString());
+                            ds.SetValue("U_VS_USUA", i, usuario.username.ToString());
+                            ds.SetValue("U_VS_CORR", i, usuario.email.ToString());
+                            ds.SetValue("U_VS_DIREC", i, usuario.address.street.ToString());
+                            ds.SetValue("U_VS_TELF", i, usuario.phone.ToString());
+                            ds.SetValue("U_VS_COMP", i, usuario.company.name.ToString());
+
+                            //dt.Rows.Add(i + 1);
+                            //dt.SetValue("ID", i, usuario.id.ToString());
+                            //dt.SetValue("Nombre", i, usuario.name);
+                            //dt.SetValue("Usuario", i, usuario.username);
+                            //dt.SetValue("Correo", i, usuario.email);
+                            //dt.SetValue("Direccion", i, usuario.address.street);
+                            //dt.SetValue("Telefono", i, usuario.phone);
+                            //dt.SetValue("Compania", i, usuario.company.name);
+                        }
+                        catch (Exception ex)
+                        {
+                            throw;
+                        }
+
+                        i++;
                     }
 
-                    i++;
+                    Matrix matrixUsuarios = myForm.Items.Item("Item_7").Specific;
+
+                    //int filaSeleccionada = matrixUsuarios.GetNextSelectedRow(0, BoOrderType.ot_RowOrder);
+                    //int filas[];
+                    
+                    //while (filaSeleccionada != -1)
+                    //{
+                    //    //fila[0] = matrixUsuarios.GetNextSelectedRow(0, BoOrderType.ot_RowOrder);
+                    //}
+
+
+                    matrixUsuarios.LoadFromDataSource();
+                    matrixUsuarios.AutoResizeColumns();
                 }
-
-                Matrix matrixUsuarios = myForm.Items.Item("Item_7").Specific;
-                matrixUsuarios.LoadFromDataSource();
-                matrixUsuarios.AutoResizeColumns();
+                catch (Exception)
+                {
+                    throw;
+                }
+                finally { myForm.Freeze(false); }
             }
         }
     }

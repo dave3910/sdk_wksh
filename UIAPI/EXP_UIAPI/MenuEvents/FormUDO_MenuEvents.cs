@@ -19,8 +19,35 @@ namespace EXP_UIAPI.MenuEvents
                 var formUID = string.Concat(TYPE, new Random().Next(0, 1000));
                 Globales.CrearFormulario(PATH, TYPE, formUID);
 
-
+                Automage(formUID);
                 CargarDatosPorDefecto(formUID);
+            }
+            catch (Exception)
+            {
+                throw;
+            }
+        }
+
+        private static void Automage(string formUID)
+        {
+            try
+            {
+                Form form = Globales.oAplication.Forms.Item(formUID);
+
+                form.Items.Item("Item_6").SetAutoManagedAttribute(BoAutoManagedAttr.ama_Visible, 1, BoModeVisualBehavior.mvb_False); //MODO OK
+                form.Items.Item("Item_6").SetAutoManagedAttribute(BoAutoManagedAttr.ama_Visible, 2, BoModeVisualBehavior.mvb_True); //MODO CREACION
+                form.Items.Item("Item_6").SetAutoManagedAttribute(BoAutoManagedAttr.ama_Visible, 4, BoModeVisualBehavior.mvb_False); //MODO BUSQUEDA
+                form.Items.Item("Item_6").SetAutoManagedAttribute(BoAutoManagedAttr.ama_Visible, 8, BoModeVisualBehavior.mvb_False); //MODO VISTA
+
+                form.Items.Item("Item_2").SetAutoManagedAttribute(BoAutoManagedAttr.ama_Editable,1, BoModeVisualBehavior.mvb_False);
+                form.Items.Item("Item_2").SetAutoManagedAttribute(BoAutoManagedAttr.ama_Editable,2, BoModeVisualBehavior.mvb_True);
+                form.Items.Item("Item_2").SetAutoManagedAttribute(BoAutoManagedAttr.ama_Editable,4, BoModeVisualBehavior.mvb_True);
+                form.Items.Item("Item_2").SetAutoManagedAttribute(BoAutoManagedAttr.ama_Editable,8, BoModeVisualBehavior.mvb_False);
+
+                form.Items.Item("Item_8").SetAutoManagedAttribute(BoAutoManagedAttr.ama_Editable, 1, BoModeVisualBehavior.mvb_False);
+                form.Items.Item("Item_8").SetAutoManagedAttribute(BoAutoManagedAttr.ama_Editable, 2, BoModeVisualBehavior.mvb_True);
+                form.Items.Item("Item_8").SetAutoManagedAttribute(BoAutoManagedAttr.ama_Editable, 4, BoModeVisualBehavior.mvb_True);
+                form.Items.Item("Item_8").SetAutoManagedAttribute(BoAutoManagedAttr.ama_Editable, 8, BoModeVisualBehavior.mvb_False);
             }
             catch (Exception)
             {
